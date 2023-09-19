@@ -17,15 +17,11 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(?:ico|png|gif|jpeg|jpg)$/i,
+        test: /\.(?:ico|png|gif|jpeg|jpg|svg)$/i,
         use: [
           "file-loader",
           {
             loader: "image-webpack-loader",
-            options: {
-              bypassOnDebug: true,
-              disable: true,
-            }
           }
         ]
       }
