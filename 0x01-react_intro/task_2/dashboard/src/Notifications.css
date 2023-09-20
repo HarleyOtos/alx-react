@@ -1,4 +1,16 @@
 .Notifications {
-  padding: 20px;
-  border: 2px solid red;
+  padding: 15px;
+  border: 2px dashed red;
+}
+
+.Notifications button img {
+  width: 10px;
+}
+
+[data-priority="default"] {
+  color: blue;
+}
+
+[data-priority="urgent"] {
+  color: red;
 }

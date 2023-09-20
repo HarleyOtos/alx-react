@@ -13,3 +13,7 @@ export function getFooterCopy(isIndex) {
 
   return ftMsg;
 }
+
+export function getLatestNotification() {
+  return "<strong>Urgent requirement</strong> - complete by EOD";
+}
