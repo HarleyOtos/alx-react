@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  border-bottom: 3px solid red;
+  align-items: center;
+}
+
+.header img {
+  width: 200px;
+  height: 200px;
+}
+
+.header h1 {
+  color: red;
+  font-size: 30px;
+}
