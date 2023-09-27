@@ -1,0 +1,21 @@
+.Notifications {
+  padding: 15px;
+  border: 2px dashed red;
+  margin-bottom: 10px;
+}
+
+.Notifications button img {
+  width: 10px;
+}
+
+.Notifications p {
+  margin-top: 10px;
+}
+
+[data-notification-type="default"] {
+  color: blue;
+}
+
+[data-notification-type="urgent"] {
+  color: red;
+}
