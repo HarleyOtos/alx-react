@@ -9,19 +9,7 @@ import { getLatestNotification } from "../utils/utils";
 import "./App.css";
 
 
-App.defaultProps = {
-  isLoggedIn: false,
-};
-
-App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-};
-
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { isLoggedIn } = this.props;
     return (
@@ -57,5 +45,14 @@ const listNotifications = [
   { id: 2, type: "urgent", value: "New resume available" },
   { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
 ];
+
+App.defaultProps = {
+  isLoggedIn: false,
+};
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
+
 
 export default App;
