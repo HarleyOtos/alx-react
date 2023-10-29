@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -17,26 +17,33 @@ App.propTypes = {
   isLoggedIn: PropTypes.bool,
 };
 
-function App({ isLoggedIn }) {
-  return (
-    <>
-      <Notifications listNotifications={listNotifications} />
-      <div className='App'>
-        <Header />
-      </div>
-      <div className='App-body'>
-        {!isLoggedIn ?
-          <Login />
-          :
-          <CourseList listCourses={listCourses}
-          />
-        }
-      </div>
-      <div className='App-footer'>
-        <Footer />
-      </div>
-    </>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const { isLoggedIn } = this.props;
+    return (
+      <>
+        <Notifications listNotifications={listNotifications} />
+        <div className='App'>
+          <Header />
+        </div>
+        <div className='App-body'>
+          {!isLoggedIn ?
+            <Login />
+            :
+            <CourseList listCourses={listCourses}
+            />
+          }
+        </div>
+        <div className='App-footer'>
+          <Footer />
+        </div>
+      </>
+    );
+  }
 }
 
 const listCourses = [
