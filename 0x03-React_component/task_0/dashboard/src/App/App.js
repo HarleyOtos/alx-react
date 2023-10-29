@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
@@ -9,7 +9,7 @@ import { getLatestNotification } from "../utils/utils";
 import "./App.css";
 
 
-class App extends Component {
+class App extends React.component {
   render() {
     const { isLoggedIn } = this.props;
     return (
