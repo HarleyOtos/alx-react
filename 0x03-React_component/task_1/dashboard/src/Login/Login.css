@@ -1,0 +1,11 @@
+.login {
+  margin: 50px;
+}
+
+.login label {
+  font-weight: bold;
+}
+
+.login input {
+  margin-left: 10px;
+}
