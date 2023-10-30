@@ -58,6 +58,7 @@
     ]
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "setupFiles": [
       "<rootDir>/config/setupTests.js"
     ],
