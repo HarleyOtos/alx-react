@@ -21,8 +21,28 @@ const listNotifications = [
 ];
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.handleKey = this.handleKey.bind(this);
+  }
+
+  handleKey(e) {
+    if (e.key === "h" && e.ctrlKey) {
+      alert("Logging you out");
+      this.props.logOut();
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKey);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKey);
+  }
+
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, logOut } = this.props;
     return (
       <>
         <Notifications listNotifications={listNotifications} />
@@ -45,12 +65,15 @@ class App extends Component {
   }
 }
 
+
 App.defaultProps = {
   isLoggedIn: false,
+  logOut: () => {},
 };
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
+  logOut: PropTypes.func,
 };
 
 export default App;
