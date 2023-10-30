@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import CourseList from '../CourseList/CourseList';
+import BodySection from "../BodySection/BodySection";
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { getLatestNotification } from "../utils/utils";
 import "./App.css";
 
@@ -50,13 +52,21 @@ class App extends Component {
           <Header />
         </div>
         <div className='App-body'>
-          {!isLoggedIn ?
-            <Login />
-            :
-            <CourseList listCourses={listCourses}
-            />
-          }
+          {!isLoggedIn ? (
+            <BodySectionWithMarginBottom title='Log in to continue'>
+              <Login />
+            </BodySectionWithMarginBottom>
+          ) : (
+            <BodySectionWithMarginBottom title='Course list'>
+              <CourseList listCourses={listCourses} />
+            </BodySectionWithMarginBottom>
+          )}
         </div>
+
+        <BodySection title='News from the School'>
+          <p>Just some random text</p>
+        </BodySection>
+
         <div className='App-footer'>
           <Footer />
         </div>
@@ -68,7 +78,7 @@ class App extends Component {
 
 App.defaultProps = {
   isLoggedIn: false,
-  logOut: () => {},
+  logOut: () => { },
 };
 
 App.propTypes = {
