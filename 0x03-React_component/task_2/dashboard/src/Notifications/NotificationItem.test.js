@@ -23,6 +23,29 @@ describe("<Notifications />", () => {
     );
     wrapper.update();
     const listItem = wrapper.find("li");
-    expect(listItem.html()).toEqual("<li><u>test</u></li>");
+    expect(listItem.html()).toEqual(
+      '<li data-notification-type="default"><u>test</u></li>'
+    );
+  });
+  it("when calling the function markAsRead on an instance of the component, the spy is being called with the right message", () => {
+    const id = 27;
+
+    const wrapper = shallow(
+      <NotificationItem type="default" value="test" id={id} />
+    );
+
+    // const instance = wrapper.instance();
+    const instance = wrapper;
+
+    instance.markAsRead = jest.fn();
+
+    const listItem = wrapper.find("li").first();
+
+    listItem.simulate("click");
+
+    instance.markAsRead(id);
+
+    expect(instance.markAsRead).toHaveBeenCalledWith(27);
+    jest.restoreAllMocks();
   });
 });

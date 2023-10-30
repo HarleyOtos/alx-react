@@ -1,15 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-function NotificationItem({ type, value, html }) {
+function NotificationItem({ type, value, html, markAsRead, id }) {
 
   let listItem;
 
   if (value) {
-    listItem = <li data-notification-type={type}>{value}</li>;
+    listItem = (
+      <li data-notification-type={type} onClick={() => markAsRead(id)}
+      >
+        {value}
+      </li>
+    );
   } else {
     listItem = (
-      <li data-notification-type={type} dangerouslySetInnerHTML={html}></li>
+      <li data-notification-type={type}
+        dangerouslySetInnerHTML={html}
+        onClick={() => markAsRead(id)}
+      >
+      </li>
     );
   }
 
@@ -20,6 +29,8 @@ NotificationItem.defaultProps = {
   type: 'default',
   value: '',
   html: {},
+  markAsRead: () => {},
+  id: NaN,
 };
 
 NotificationItem.propTypes = {
@@ -28,6 +39,8 @@ NotificationItem.propTypes = {
   html: PropTypes.shape({
     __html: PropTypes.string,
   }),
+  markAsRead: PropTypes.func,
+  id: PropTypes.number,
 };
 
 export default NotificationItem;
