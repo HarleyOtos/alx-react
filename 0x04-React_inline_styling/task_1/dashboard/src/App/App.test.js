@@ -1,8 +1,16 @@
 import { shallow } from "enzyme";
 import React from "react";
 import App from "./App";
+import { StyleSheetTestUtils } from "aphrodite";
 
 describe("<App />", () => {
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it("App renders without crashing", () => {
     const wrapper = shallow(<App />);
     expect(wrapper.exists()).toEqual(true);

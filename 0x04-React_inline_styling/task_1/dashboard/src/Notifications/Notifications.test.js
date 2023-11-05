@@ -2,10 +2,18 @@ import { shallow, mount } from "enzyme";
 import React from "react";
 import Notifications from "./Notifications";
 import { getLatestNotification } from "../utils/utils";
+import { StyleSheetTestUtils } from "aphrodite";
 
 describe("<Notifications />", () => {
   let listNotifications;
   let latestNotification;
+
+  beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+  afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
 
   it("Notifications renders without crashing", () => {
     const wrapper = shallow(<Notifications />);
