@@ -1,8 +1,5 @@
-#CourseList {
-  margin-top: 40px;
-  border: 1px solid gray;
-  border-collapse: collapse;
-  width: 95%;
+:root {
+  --border-table-color: rgb(170, 170, 170);
 }
 
 #CourseList th {
