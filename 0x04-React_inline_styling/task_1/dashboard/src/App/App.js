@@ -8,7 +8,8 @@ import CourseList from '../CourseList/CourseList';
 import BodySection from "../BodySection/BodySection";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import { getLatestNotification } from "../utils/utils";
-import "./App.css";
+import { StyleSheet, css } from "aphrodite";
+
 
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
@@ -48,10 +49,10 @@ class App extends Component {
     return (
       <>
         <Notifications listNotifications={listNotifications} />
-        <div className='App'>
+        <div className={css(styles.app)}>
           <Header />
         </div>
-        <div className='App-body'>
+        <div className={css(styles.body)}>
           {!isLoggedIn ? (
             <BodySectionWithMarginBottom title='Log in to continue'>
               <Login />
@@ -67,7 +68,7 @@ class App extends Component {
           <p>Just some random text</p>
         </BodySection>
 
-        <div className='App-footer'>
+        <div className={css(styles.footer)}>
           <Footer />
         </div>
       </>
@@ -85,5 +86,30 @@ App.propTypes = {
   isLoggedIn: PropTypes.bool,
   logOut: PropTypes.func,
 };
+
+const cssVars = {
+  mainColor: "#e01d3f",
+};
+
+const styles = StyleSheet.create({
+  app: {
+    borderBottom: `3px solid ${cssVars.mainColor}`,
+  },
+
+  body: {
+    display: "flex",
+    justifyContent: "center",
+  },
+
+  footer: {
+    borderTop: `3px solid ${cssVars.mainColor}`,
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    position: "fixed",
+    bottom: 0,
+    fontStyle: "italic",
+  },
+});
 
 export default App;
