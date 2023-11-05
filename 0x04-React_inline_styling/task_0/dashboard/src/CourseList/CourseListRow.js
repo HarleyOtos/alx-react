@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const rowStyles = { backgroundColor: "#f5f5f5ab" };
+const headerRowStyles = { backgroundColor: "#deb5b545" };
+
 function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
   let item;
 
@@ -26,7 +29,12 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
     );
   }
 
-  return <tr>{item}</tr>;
+  let isHeaderStyle;
+
+  if (isHeader) isHeaderStyle = headerRowStyles;
+  else isHeaderStyle = rowStyles;
+
+  return <tr style={isHeaderStyle}>{item}</tr>;
 }
 
 CourseListRow.defaultProps = {
