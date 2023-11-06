@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { getLatestNotification } from '../utils/utils';
 import NotificationItemShape from './NotificationItemShape';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
@@ -82,11 +81,6 @@ class Notifications extends Component {
                   markAsRead={this.markAsRead}
                 />
               ))}
-              <NotificationItem type="urgent" value="New resume available" />
-              <NotificationItem
-                type="urgent"
-                html={{ __html: getLatestNotification() }}
-              />
             </ul>
           </div>
         )}
