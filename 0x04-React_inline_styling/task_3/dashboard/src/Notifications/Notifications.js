@@ -33,7 +33,9 @@ class Notifications extends Component {
     return (
       <>
         <div id='menuItem' className={css(styles.menuItem)}>
-          <p>Your Notifications</p>
+          <p className={menuPStyle}>
+            Your Notifications
+          </p>
         </div>
         {displayDrawer && (
           <div id='Notifications' className={css(styles.notifications)}>
