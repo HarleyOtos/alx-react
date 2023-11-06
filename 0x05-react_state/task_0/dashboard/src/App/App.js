@@ -23,10 +23,15 @@ const listNotifications = [
   { id: 3, type: "urgent", html: { __html: getLatestNotification() } },
 ];
 
+document.body.style.margin = 0;
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.handleKey = this.handleKey.bind(this);
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.state = { displayDrawer: false };
   }
 
   handleKey(e) {
@@ -34,6 +39,14 @@ class App extends Component {
       alert("Logging you out");
       this.props.logOut();
     }
+  }
+
+  handleDisplayDrawer() {
+    this.setState({ displayDrawer: true });
+  }
+
+  handleHideDrawer() {
+    this.setState({ displayDrawer: false });
   }
 
   componentDidMount() {
@@ -46,30 +59,43 @@ class App extends Component {
 
   render() {
     const { isLoggedIn, logOut } = this.props;
+    const { displayDrawer } = this.state;
     return (
       <>
-        <Notifications listNotifications={listNotifications} />
-        <div className={css(styles.app)}>
-          <Header />
-        </div>
-        <div className={css(styles.body)}>
-          {!isLoggedIn ? (
-            <BodySectionWithMarginBottom title='Log in to continue'>
-              <Login />
-            </BodySectionWithMarginBottom>
-          ) : (
-            <BodySectionWithMarginBottom title='Course list'>
-              <CourseList listCourses={listCourses} />
-            </BodySectionWithMarginBottom>
-          )}
-        </div>
+        <Notifications listNotifications={listNotifications}
+          displayDrawer={displayDrawer}
+          handleDisplayDrawer={this.handleDisplayDrawer}
+          handleHideDrawer={this.handleHideDrawer}
+        />
+        <div className={css(styles.container)}>
+          <div className={css(styles.app)}>
+            <Header />
+          </div>
+          <div className={css(styles.appBody)}>
+            {!isLoggedIn ? (
+              <BodySectionWithMarginBottom title='Log in to continue'>
+                <Login />
+              </BodySectionWithMarginBottom>
+            ) : (
+              <BodySectionWithMarginBottom title='Course list'>
+                <CourseList listCourses={listCourses} />
+              </BodySectionWithMarginBottom>
+            )}
+          </div>
 
-        <BodySection title='News from the School'>
-          <p>Just some random text</p>
-        </BodySection>
+          <BodySection title='News from the School'>
+            <p>
+              Lorem Ipsum is simply dummy text of the printing
+              and typesetting industry. Lorem Ipsum has been the industry's
+              standard dummy text ever since the 1500s,
+              when an unknown printer took a galley of type and scrambled
+              it to make a type specimen book.
+            </p>
+          </BodySection>
 
-        <div className={css(styles.footer)}>
-          <Footer />
+          <div className={css(styles.footer)}>
+            <Footer />
+          </div>
         </div>
       </>
     );
@@ -91,12 +117,22 @@ const cssVars = {
   mainColor: "#e01d3f",
 };
 
+const screenSize = {
+  small: "@media screen and (max-width: 900px)",
+};
+
 const styles = StyleSheet.create({
+  container: {
+    width: "calc(100% - 16px)",
+    marginLeft: "8px",
+    marginRight: "8px",
+  },
+
   app: {
     borderBottom: `3px solid ${cssVars.mainColor}`,
   },
 
-  body: {
+  appBody: {
     display: "flex",
     justifyContent: "center",
   },
@@ -109,6 +145,9 @@ const styles = StyleSheet.create({
     position: "fixed",
     bottom: 0,
     fontStyle: "italic",
+    [screenSize.small]: {
+      position: "static",
+    },
   },
 });
 

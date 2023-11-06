@@ -19,12 +19,19 @@ class Notifications extends Component {
 
   shouldComponentUpdate(nextProps) {
     return (
-      nextProps.listNotifications.length > this.props.listNotifications.length
+      nextProps.listNotifications.length >
+      this.props.listNotifications.length ||
+      nextProps.displayDrawer !== this.props.displayDrawer
     );
   }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const {
+      displayDrawer,
+      listNotifications,
+      handleDisplayDrawer,
+      handleHideDrawer
+    } = this.props;
 
     const menuPStyle = css(
       displayDrawer ? styles.menuItemPNoShow : styles.menuItemPShow
@@ -32,7 +39,10 @@ class Notifications extends Component {
 
     return (
       <>
-        <div id='menuItem' className={css(styles.menuItem)}>
+        <div id='menuItem'
+          className={css(styles.menuItem)}
+          onClick={handleDisplayDrawer}
+        >
           <p className={menuPStyle}>
             Your Notifications
           </p>
@@ -47,6 +57,8 @@ class Notifications extends Component {
                 right: 20,
               }}
               aria-label='close'
+              onClick={handleHideDrawer}
+              id='closeNotifications'
             >
               <img src={closeIcon} alt='close-icon'
                 className={css(styles.notificationsButtonImage)}
@@ -86,11 +98,15 @@ class Notifications extends Component {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
+  handleDisplayDrawer: () => { },
+  handleHideDrawer: () => { },
 };
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
 };
 
 const cssVars = {
@@ -162,7 +178,6 @@ const styles = StyleSheet.create({
 
   notifications: {
     float: "right",
-    // border: `3px dashed ${cssVars.mainColor}`,
     padding: "10px",
     marginBottom: "20px",
     animationName: [borderKeyframes],

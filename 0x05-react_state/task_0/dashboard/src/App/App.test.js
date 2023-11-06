@@ -65,4 +65,35 @@ describe("<App />", () => {
 
     jest.restoreAllMocks();
   });
+
+  it("Has default state for displayDrawer false", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.state().displayDrawer).toEqual(false);
+  });
+
+  it("displayDrawer changes to true when calling handleDisplayDrawer", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.state().displayDrawer).toEqual(false);
+
+    const instance = wrapper.instance();
+
+    instance.handleDisplayDrawer();
+
+    expect(wrapper.state().displayDrawer).toEqual(true);
+  });
+
+  it("displayDrawer changes to false when calling handleHideDrawer", () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.state().displayDrawer).toEqual(false);
+
+    // const instance = wrapper.instance();
+
+    wrapper.instance().handleDisplayDrawer();
+
+    expect(wrapper.state().displayDrawer).toEqual(true);
+
+    wrapper.instance().handleHideDrawer();
+
+    expect(wrapper.state().displayDrawer).toEqual(false);
+  });
 });
