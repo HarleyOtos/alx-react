@@ -10,7 +10,6 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import { getLatestNotification } from "../utils/utils";
 import { StyleSheet, css } from "aphrodite";
 
-
 const listCourses = [
   { id: 1, name: "ES6", credit: 60 },
   { id: 2, name: "Webpack", credit: 20 },
@@ -60,6 +59,7 @@ class App extends Component {
   render() {
     const { isLoggedIn, logOut } = this.props;
     const { displayDrawer } = this.state;
+  
     return (
       <>
         <Notifications listNotifications={listNotifications}
@@ -105,7 +105,7 @@ class App extends Component {
 
 App.defaultProps = {
   isLoggedIn: false,
-  logOut: () => { },
+  logOut: () => {},
 };
 
 App.propTypes = {
