@@ -13,7 +13,7 @@ function CourseListRow({ isHeader, textFirstCell, textSecondCell }) {
     if (textSecondCell === null) {
       item = <th colSpan='2' className={css(styles.CourseListThSpan2)}>
         {textFirstCell}
-        </th>;
+      </th>;
     } else {
       item = (
         <>
