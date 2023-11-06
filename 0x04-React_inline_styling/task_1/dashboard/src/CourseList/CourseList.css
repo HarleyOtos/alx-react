@@ -2,17 +2,17 @@
   --border-table-color: rgb(170, 170, 170);
 }
 
-#CourseList th {
+th {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   text-align: left;
   font-size: 18px;
 }
 
-#CourseList th[colspan="2"] {
+th[colspan="2"] {
   text-align: center;
 }
 
-#CourseList td {
+td {
   text-align: start;
 }
