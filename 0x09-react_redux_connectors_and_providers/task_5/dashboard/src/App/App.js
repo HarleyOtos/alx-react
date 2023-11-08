@@ -36,10 +36,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.handleKey = this.handleKey.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.state = {
       user,
-      listNotifications: listNotificationsInitialState,
     };
   }
 
@@ -48,14 +46,6 @@ class App extends Component {
       alert("Logging you out");
       this.props.logout();
     }
-  }
-
-  markNotificationAsRead(id) {
-    this.setState({
-      listNotifications: this.state.listNotifications.filter((notification) => {
-        return notification.id !== id;
-      }),
-    });
   }
 
   componentDidMount() {
@@ -76,16 +66,14 @@ class App extends Component {
       logout,
     } = this.props;
 
-    const { user, listNotifications } = this.state;
+    const { user } = this.state;
 
     return (
       <>
-      {/* <AppContext.Provider value={value}> */}
-        <Notifications listNotifications={listNotifications}
+        <Notifications
           displayDrawer={displayDrawer}
           handleDisplayDrawer={displayNotificationDrawer}
           handleHideDrawer={hideNotificationDrawer}
-          markNotificationAsRead={this.markNotificationAsRead}
         />
         <div className={css(styles.container)}>
           <div className={css(styles.app)}>
@@ -117,7 +105,6 @@ class App extends Component {
             <Footer />
           </div>
         </div>
-      {/* </AppContext.Provider> */}
       </>
     );
   }
@@ -180,8 +167,8 @@ const styles = StyleSheet.create({
 
 export const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.get("isUserLoggedIn"),
-    displayDrawer: state.get("isNotificationDrawerVisible"),
+    isLoggedIn: state.ui.get("isUserLoggedIn"),
+    displayDrawer: state.ui.get("isNotificationDrawerVisible"),
   };
 };
 
