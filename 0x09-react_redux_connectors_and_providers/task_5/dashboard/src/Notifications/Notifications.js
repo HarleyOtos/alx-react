@@ -1,28 +1,20 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Component } from 'react';
 import PropTypes from "prop-types";
-import NotificationItemShape from './NotificationItemShape';
+import { connect } from "react-redux";
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import { StyleSheet, css } from "aphrodite";
+import { fetchNotifications } from "../actions/notificationActionCreators";
 
 
 class Notifications extends PureComponent {
   constructor(props) {
     super(props)
-    // this.markAsRead = this.markAsRead.bind(this);
   }
 
-  // markAsRead(id) {
-  //   console.log(`Notification ${id} has been marked as read`);
-  // }
-
-  // shouldComponentUpdate(nextProps) {
-  //   return (
-  //     nextProps.listNotifications.length >
-  //     this.props.listNotifications.length ||
-  //     nextProps.displayDrawer !== this.props.displayDrawer
-  //   );
-  // }
+  componentDidMount() {
+    this.props.fetchNotifications();
+  }
 
   render() {
     const {
@@ -39,28 +31,29 @@ class Notifications extends PureComponent {
 
     return (
       <>
-        <div id='menuItem'
+        <div
           className={css(styles.menuItem)}
+          id="menuItem"
           onClick={handleDisplayDrawer}
         >
-          <p className={menuPStyle}>
-            Your Notifications
-          </p>
+          <p className={menuPStyle}>Your notifications</p>
         </div>
         {displayDrawer && (
-          <div id='Notifications' className={css(styles.notifications)}>
+          <div className={css(styles.notifications)} id="Notifications">
             <button
               style={{
                 background: "transparent",
-                border: 'none',
-                position: 'absolute',
+                border: "none",
+                position: "absolute",
                 right: 20,
               }}
-              aria-label='close'
+              aria-label="close"
               onClick={handleHideDrawer}
-              id='closeNotifications'
+              id="closeNotifications"
             >
-              <img src={closeIcon} alt='close-icon'
+              <img
+                src={closeIcon}
+                alt="close-icon"
                 className={css(styles.notificationsButtonImage)}
               />
             </button>
@@ -68,41 +61,44 @@ class Notifications extends PureComponent {
               Here is the list of notifications
             </p>
             <ul className={css(styles.notificationsUL)}>
-              {listNotifications.length === 0 && (
-                <NotificationItem type="noNotifications"
-                  value="No new notification for now"
+              {!listNotifications && (
+                <NotificationItem
+                  type="noNotifications"
+                  value="No new notifications for now"
                 />
               )}
 
-              {listNotifications.map((notification) => (
-                <NotificationItem
-                  key={notification.id}
-                  id={notification.id}
-                  type={notification.type}
-                  value={notification.value}
-                  html={notification.html}
-                  markAsRead={this.markNotificationAsRead}
-                />
-              ))}
+              {listNotifications &&
+                Object.values(listNotifications).map((notification) => (
+                  <NotificationItem
+                    key={notification.guid}
+                    id={notification.guid}
+                    type={notification.type}
+                    value={notification.value}
+                    html={notification.html}
+                    markAsRead={markNotificationAsRead}
+                  />
+                ))}
             </ul>
           </div>
         )}
       </>
     );
-  };
+  }
 }
 
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: [],
-  handleDisplayDrawer: () => {},
-  handleHideDrawer: () => {},
-  markNotificationAsRead: () => {},
+  listNotifications: null,
+  handleDisplayDrawer: () => { },
+  handleHideDrawer: () => { },
+  markNotificationAsRead: () => { },
+  fetchNotifications: () => { },
 };
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
   markNotificationAsRead: PropTypes.func,
@@ -176,7 +172,8 @@ const styles = StyleSheet.create({
   },
 
   notifications: {
-    float: "right",
+    // float: "right",
+    // border: `3px dashed ${cssVars.mainColor}`,
     padding: "10px",
     marginBottom: "20px",
     animationName: [borderKeyframes],
@@ -185,6 +182,7 @@ const styles = StyleSheet.create({
     animationFillMode: "forwards",
     ":hover": {
       border: `3px dashed deepSkyBlue`,
+      // animationFillMode: "forwards",
     },
     [screenSize.small]: {
       float: "none",
@@ -194,12 +192,13 @@ const styles = StyleSheet.create({
       fontSize: "20px",
       ":hover": {
         border: "none",
+        // animationFillMode: "forwards",
       },
       position: "absolute",
       background: "white",
       height: "110vh",
       width: "100vw",
-      zIndex: 10
+      zIndex: 10,
     },
   },
 
@@ -207,16 +206,28 @@ const styles = StyleSheet.create({
     width: "10px",
   },
 
+  notificationsP: {
+    margin: 0,
+    marginTop: "15px",
+  },
+
   notificationsUL: {
     [screenSize.small]: {
       padding: 0,
     },
   },
-
-  notificationsP: {
-    margin: 0,
-    marginTop: "15px",
-  },
 });
 
-export default Notifications;
+const mapStateToProps = (state) => {
+  return {
+    listNotifications: state.notifications.get("messages"),
+  };
+};
+
+const mapDispatchToProps = {
+  fetchNotifications,
+};
+
+// export default Notifications;
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
