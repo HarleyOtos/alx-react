@@ -1,25 +1,28 @@
 import React, { Component } from "react";
-import logo from '../assets/holberton-logo.jpg';
-import AppContext from "../App/AppContext";
 import { StyleSheet, css } from "aphrodite";
+import { connect } from "react-redux";
+import { logout } from "../actions/uiActionCreators";
+import PropTypes from "prop-types";
+import AppContext from "../App/AppContext";
+import logo from '../assets/holberton-logo.jpg';
 
-class Header extends Component {
+export class Header extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const { user, logOut } = this.context;
+    const { user, logOut } = this.props;
 
     return (
       <div className={css(styles.header)}>
         <img src={logo} alt="logo" className={css(styles.headerImg)} />
         <h1>School dashboard</h1>
 
-        {user.isLoggedIn && (
+        {user && (
           <p id="logoutSection" className={css(styles.logoutSection)}>
             Welcome <b>{`${user.email} `}</b>
-            <span onClick={logOut} className={css(styles.logoutSectionSpan)}>
+            <span onClick={logout} className={css(styles.logoutSectionSpan)}>
               (logout)
             </span>
           </p>
@@ -61,4 +64,24 @@ const styles = StyleSheet.create({
 
 Header.contextType = AppContext;
 
-export default Header;
+Header.defaultProps = {
+  user: null,
+  logout: () => {},
+};
+
+Header.propTypes = {
+  user: PropTypes.object,
+  logout: PropTypes.func,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.get("user"),
+  };
+};
+
+const mapDispatchToProps = {
+  logout,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
