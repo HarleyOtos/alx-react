@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getFullYear, getFooterCopy } from '../utils/utils';
-import AppContext from "../App/AppContext";
 
 export function Footer({ user }) {
   return (
