@@ -90,10 +90,10 @@ class Notifications extends PureComponent {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: null,
-  handleDisplayDrawer: () => { },
-  handleHideDrawer: () => { },
-  markNotificationAsRead: () => { },
-  fetchNotifications: () => { },
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {},
+  markNotificationAsRead: () => {},
+  fetchNotifications: () => {},
 };
 
 Notifications.propTypes = {
